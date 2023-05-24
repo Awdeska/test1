@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData, AppDispatch, RootState } from "./store/store";
-import {Button, FlatList, StyleSheet, Text, TouchableHighlight, View} from "react-native";
+import {Button, FlatList, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View} from "react-native";
+import NavigationProps from "./interfaces/Navigation";
 
 interface Customer {
     c_ID: number;
@@ -13,7 +14,7 @@ interface Customer {
     Mail: string;
 }
 
-const DealScreen: React.FC = () => {
+const DealScreen = (props: {navigation: NavigationProps}) => {
 
     function fetchData() {
         const customer1: Customer = {
@@ -68,8 +69,16 @@ const DealScreen: React.FC = () => {
     );
 
     return (
+
         <View style={styles.container}>
-            <Button title="Получить данные" onPress={fetchData} />
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('View')}>
+                    <Text style={styles.buttonText}>Просмотр</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Create')}>
+                    <Text style={styles.buttonText}>Создать</Text>
+                </TouchableOpacity>
+            </View>
             <FlatList
                 style={styles.list}
                 data={customers}
@@ -109,6 +118,23 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 20,
+        marginBottom: 10,
+    },
+    button: {
+        backgroundColor: 'blue',
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderRadius: 5,
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
     list: {
         marginTop: 20,

@@ -1,25 +1,17 @@
 import React, { useState } from "react";
 import { Button, TextInput, View, Text, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import {StackNavigationProp} from "@react-navigation/stack";
+import NavigationProps from "./interfaces/Navigation";
 
-type StackParamList = {
-    Home: { foo: string, onBar: () => void } | undefined
-}
-
-type NavigationProps = StackNavigationProp<StackParamList>
-
-const LoginScreen: React.FC = () => {
+const LoginScreen = (props: {navigation: NavigationProps}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const navigation = useNavigation<NavigationProps>();
 
     const handleLogin = () => {
         const isAuthenticated = true;
 
         if (isAuthenticated) {
-            navigation.navigate('Home');
+            props.navigation.navigate('Home');
         } else {
             console.log("Invalid username or password");
         }

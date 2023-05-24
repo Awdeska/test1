@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const app = express();
 
 const port = 3000;
-const host = '192.168.1.184';
+const host = '192.168.1.183';
 
 app.use(express.static('public'));
 
